@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import unknown_person from "../../images/unknown_person.png";
 import { Link } from "react-router-dom";
 let img;
+const url = process.env.REACT_APP_SERVER;
 class UserTemplate extends Component {
   render() {
     const { value, index, btnText } = this.props;
     if (value["picture"] === null) img = unknown_person;
-    else img = "http://localhost/face_afeka/" + value["picture"];
-    console.log(value["picture"]);
+    else img = url + "face_afeka/" + value["picture"];
     return (
       <div id="friend">
         <img src={img} alt="not found" />

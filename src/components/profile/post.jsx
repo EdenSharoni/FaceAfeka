@@ -6,7 +6,17 @@ import { PostData } from "../../services/PostData";
 import ImagesGallary from "./images_gallary";
 import EditPostSave from "./edit_post";
 import { Link } from "react-router-dom";
-const basicImagesPath = "http://localhost/face_afeka/faceAfeka/PostsImages/";
+const current_user = JSON.parse(sessionStorage.getItem("user")) || {
+  userid: null,
+  user_name: "",
+  first_name: "",
+  last_name: "",
+  email: "",
+  gender: "",
+  picture: [],
+};
+const url = process.env.REACT_APP_SERVER;
+const basicImagesPath = url + "face_afeka/faceAfeka/PostsImages/";
 let img;
 class ProfilePost extends Component {
   constructor(props) {
@@ -43,7 +53,7 @@ class ProfilePost extends Component {
   render() {
     const { post, updateTimelinePosts, user_information } = this.props;
     if (post["picture"] === null) img = unknown_person;
-    else img = "http://localhost/face_afeka/" + post["picture"];
+    else img = url + "face_afeka/" + post["picture"];
     return (
       <div id="profile_post">
         {this.state.openImageGallary ? (
@@ -165,7 +175,7 @@ class ProfilePost extends Component {
   }
 
   checkVisibility() {
-    if (this.props.post["post_user_id"] === this.props.user_information.userid)
+    if (this.props.post["post_user_id"] === current_user.userid)
       return { display: "" };
     else return { display: "none" };
   }

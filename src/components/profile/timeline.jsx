@@ -3,8 +3,15 @@ import Post from "./post";
 import { GetDataJSON } from "../../services/GetPost";
 import WritePost from "./write_post";
 
-const current_user = JSON.parse(sessionStorage.getItem("user"));
-
+const current_user = JSON.parse(sessionStorage.getItem("user")) || {
+  userid: null,
+  user_name: "",
+  first_name: "",
+  last_name: "",
+  email: "",
+  gender: "",
+  picture: [],
+};
 class TimeLine extends Component {
   constructor(props) {
     super(props);
@@ -19,11 +26,17 @@ class TimeLine extends Component {
   render() {
     return (
       <div id="timeline_page">
-        <p>{this.props.title}</p>
-        <WritePost
-          user_information={this.props.user_information}
-          updateTimelinePosts={this.updateTimelinePosts}
-        />
+        {this.props.user_information.userid === current_user.userid ? (
+          <div>
+            <p>{this.props.title}</p>
+            <WritePost
+              user_information={this.props.user_information}
+              updateTimelinePosts={this.updateTimelinePosts}
+            />
+          </div>
+        ) : (
+          ""
+        )}
         {this.state.posts
           .filter((value) =>
             this.props.title === ""
@@ -61,11 +74,8 @@ class TimeLine extends Component {
   }
 
   updateTimelinePosts = (post, status) => {
-    //console.log(post);
     const posts = [...this.state.posts];
-    //console.log(this.state.posts);
     const indexpost = posts.findIndex((x) => x === post);
-    //console.log(indexpost);
     switch (status) {
       case "delete":
         posts.splice(indexpost, 1);
@@ -79,7 +89,6 @@ class TimeLine extends Component {
       default:
         break;
     }
-    //console.log(posts);
     this.setState({ posts });
   };
 }

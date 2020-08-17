@@ -4,8 +4,15 @@ import { PostDataJSON } from "../../services/PostData";
 import UserTemplate from "./user_template";
 import SearchForFriends from "./search_for_friends";
 
-const current_user = JSON.parse(sessionStorage.getItem("user"));
-
+const current_user = JSON.parse(sessionStorage.getItem("user")) || {
+  userid: null,
+  user_name: "",
+  first_name: "",
+  last_name: "",
+  email: "",
+  gender: "",
+  picture: [],
+};
 class FindFriends extends Component {
   state = {
     hint: [],

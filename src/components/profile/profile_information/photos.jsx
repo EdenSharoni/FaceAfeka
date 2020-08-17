@@ -5,7 +5,7 @@ import pin_red_img from "../../../images/redPin.png";
 import pin_blue_img from "../../../images/bluePin.png";
 import pin_green_img from "../../../images/greenPin.png";
 import pin_yellow_img from "../../../images/yellowPin.png";
-
+const url = process.env.REACT_APP_SERVER;
 const max = 40;
 const min = -40;
 let pinColor = pin_red_img;
@@ -20,7 +20,8 @@ class Photos extends Component {
   }
   render() {
     const imgThumbsPath =
-      "http://localhost/face_afeka/faceAfeka/PostsImages/" +
+      url +
+      "face_afeka/faceAfeka/PostsImages/" +
       this.props.user_information.user_name +
       "/thumbs/";
 

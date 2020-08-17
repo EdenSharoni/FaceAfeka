@@ -6,8 +6,17 @@ import url_like_on from "../../sound/like_on.wav";
 import url_like_off from "../../sound/like_off.wav";
 import Comment from "./comment";
 import { GetDataJSON } from "../../services/GetPost";
-
+const current_user = JSON.parse(sessionStorage.getItem("user")) || {
+  userid: null,
+  user_name: "",
+  first_name: "",
+  last_name: "",
+  email: "",
+  gender: "",
+  picture: [],
+};
 let img;
+const url = process.env.REACT_APP_SERVER;
 class LikesComments extends Component {
   state = {
     show_comments: false,
@@ -17,9 +26,7 @@ class LikesComments extends Component {
   };
   render() {
     if (this.props.user_information.picture === null) img = unknown_person;
-    else
-      img =
-        "http://localhost/face_afeka/" + this.props.user_information.picture[1];
+    else img = url + "face_afeka/" + this.props.user_information.picture[1];
     return (
       <div id="likes_comments">
         <form method="post" onSubmit={this.PostCommentToDB}>
@@ -75,7 +82,7 @@ class LikesComments extends Component {
   PostCommentToDB = (e) => {
     e.preventDefault();
     let request = new FormData();
-    request.append("user_id", this.props.user_information.userid);
+    request.append("user_id", current_user.userid);
     request.append("post_id", this.props.post["post_id"]);
     request.append("description", this.state.comment_description);
     PostDataJSON("insertComment.php", request)
@@ -117,7 +124,7 @@ class LikesComments extends Component {
   like_btn = (e) => {
     e.preventDefault();
     let request = new FormData();
-    request.append("user_id", this.props.user_information.userid);
+    request.append("user_id", current_user.userid);
     request.append("post_id", this.props.post["post_id"]);
     request.append("likes", this.props.post["likes_num"]);
 

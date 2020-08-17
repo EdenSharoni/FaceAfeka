@@ -1,10 +1,12 @@
-const BaseUrl = "http://localhost/face_afeka/";
+const url = process.env.REACT_APP_SERVER;
+const BaseUrl = url;
 
 export function PostDataJSON(type, data) {
   return new Promise((resolve, reject) => {
     fetch(BaseUrl + type, {
       method: "POST",
       body: data,
+      credentials: "same-origin",
     })
       .then((response) => response.json())
       .then((responseJson) => {
@@ -16,6 +18,7 @@ export function PostDataJSON(type, data) {
         resolve(responseJson);
       })
       .catch((error) => {
+        console.log(error);
         reject(error);
       });
   });
@@ -26,6 +29,7 @@ export function PostData(type, data) {
     fetch(BaseUrl + type, {
       method: "POST",
       body: data,
+      credentials: "same-origin",
     })
       .then((response) => resolve(response))
       .catch((error) => reject(error));

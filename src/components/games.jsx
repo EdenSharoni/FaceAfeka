@@ -4,6 +4,8 @@ import { Redirect } from "react-router-dom";
 import { PostDataJSON } from "../services/PostData";
 import UserTemplate from "./profile/user_template";
 import SearchForFriends from "./profile/search_for_friends";
+const url = process.env.REACT_APP_SERVER;
+
 let player1 = "";
 
 class Games extends Component {
@@ -86,13 +88,10 @@ class Games extends Component {
             },
             body: JSON.stringify(data),
           };
-          fetch("http://localhost:8080/", options)
+          fetch(url, options)
             .then(() => {
               window.location =
-                "http://localhost:8080/?player1=" +
-                player1 +
-                "&player2=" +
-                player2;
+                url + "?player1=" + player1 + "&player2=" + player2;
             })
             .catch((error) => console.log(error));
         }

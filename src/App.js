@@ -10,11 +10,10 @@ import OtherProfile from "./components/profile/other_profile";
 import { GetDataJSON } from "./services/GetPost";
 import { PostDataJSON } from "./services/PostData";
 import { PostData } from "./services/PostData";
-
 class App extends React.Component {
   constructor() {
     super();
-    this.checkForFriendRequest();
+    //this.checkForFriendRequest();
   }
   state = {
     userAuthentication: false,

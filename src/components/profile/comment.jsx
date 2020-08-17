@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import unknown_person from "../../images/unknown_person.png";
 let img;
+const url = process.env.REACT_APP_SERVER;
 class Comment extends Component {
   render() {
     const { comment } = this.props;
     if (comment["userImg"] === null) img = unknown_person;
-    else img = "http://localhost/face_afeka/" + comment["userImg"];
+    else img = url + "face_afeka/" + comment["userImg"];
     return (
       <div id="comment">
         <img
